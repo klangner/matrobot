@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 # Django settings for naukaslowek project.
-from local_settings import LOCAL_DATABASES, LOCAL_DEBUG, LOCAL_SECRET_KEY
+from local_settings import LOCAL_SECRET_KEY
 import os
 
-DEBUG = LOCAL_DEBUG
-DATABASES = LOCAL_DATABASES
+if (os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine') or
+    os.getenv('SETTINGS_MODE') == 'prod'):
+    # Running on production App Engine, so use a Google Cloud SQL database.
+    DEBUG = False
+else:
+    # Running in development, so use a local MySQL database.
+    DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 ADMINS = (
@@ -12,15 +17,6 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'mail.matrobot.com'
-EMAIL_PORT = 2525
-EMAIL_HOST_USER = 'app+matrobot.com'
-EMAIL_HOST_PASSWORD = 'app1456'
-SEND_BROKEN_LINK_EMAILS = True
-SERVER_EMAIL = 'app@matrobot.com'
-
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -47,7 +43,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media/')
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'matrobot/media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -102,7 +98,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'matrobot.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), 'templates'),
+    os.path.join(os.path.dirname(__file__), 'matrobot/templates'),
 )
 
 INSTALLED_APPS = (
@@ -115,7 +111,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     # aplikacje projektowe
-    'project',
+    'matrobot.project',
 )
 
 # A sample logging configuration. The only tangible logging
