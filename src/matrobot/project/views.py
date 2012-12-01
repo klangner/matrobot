@@ -11,9 +11,14 @@ from matrobot.project.models import ProjectActivity
 def index(request):
     name = request.GET.get('name', '')
     if name:
+        activities = []
         projects = ProjectActivity.gql("WHERE name=:1", name)
-        if projects.count(1) > 0:
-            return render_to_response('project/index.html', {'name':name})
+        for project in projects:
+            tenure = "%d-%.2d" % (project.year, project.month)
+            activities.append({'tenure': tenure, 'count': project.push_count})
+        if len(activities) > 0:
+            activities = sorted(activities, key=lambda activity: activity['tenure'])
+            return render_to_response('project/index.html', {'name':name, 'activities':activities})
         
     return render_to_response('project/not_found.html', {'name':name})
     
