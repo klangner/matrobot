@@ -5,14 +5,15 @@ Created on 2012-12-01
 @author: Krzysztof Langner
 '''
 
-from django.db import models
+from google.appengine.ext import db
 
 
-class ProjectActivity(models.Model):
-    name = models.CharField(max_length=100)
-    year = models.IntegerField()
-    month = models.IntegerField()
-    push_count = models.IntegerField()
-    
-    def __str__(self):
-        return self.name
+class ProjectActivity(db.Model):
+    name = db.StringProperty()
+    year = db.IntegerProperty()
+    month = db.IntegerProperty()
+    push_count = db.IntegerProperty()
+
+
+def project_activity_key(name):
+    return db.Key.from_path('ProjectActivity', name)
