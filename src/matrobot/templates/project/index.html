@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="well" class="well">
+	<h2>{{name}}</h2>
+	<div id="chart_div" style="margin-top:2em"></div>
+</div>
+
+<script src='https://www.google.com/jsapi' type='text/javascript'></script>
+
+<script type="text/javascript">
+	google.load('visualization', '1.0', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+	
+	function drawChart(){
+	    var data = new google.visualization.DataTable();
+	    data.addColumn('string', 'level');
+	    data.addColumn('number', 'Actual');
+	    data.addColumn('number', 'Estimated');
+	    data.addRows([
+				['1', 41, 12],
+				['2', 19, 22],
+				['3', 5, 5],
+				['4', 2, 3],
+				['5', 4, 0],
+				['6', 0, 1],
+				['7', 1, 0],
+				['8', 5, 4],
+				['9', 1, 0],
+				['10', 1, 0],
+				['11', 0, 0],
+				['12', 0, 1],
+				['13', 1, 0],
+				['14', 1, 2],
+				['15', 0, 0],
+				['16', 2, 0],
+				['17', 1, 0],
+				['18', 1, 0],
+				['19', 1, 0],
+				['21', 0, 1],
+				['24', 1, 0],
+				['27', 3, 0]
+	    ]);
+	 
+	    var chartDiv = document.getElementById('chart_div')
+	    var chart = new google.visualization.LineChart(chartDiv);
+	    var options = {
+	    		width: $('#well').width(), 
+	    		height: 500,
+	            title: 'Push count',
+	            pointSize:10,
+	            hAxis: {minValue:0, title: "Date"},
+	            vAxis: {minValue:0, title: "Events"}
+	          };
+
+	    chart.draw(data, options);	    
+	}
+	 
+</script>   	
+
+{% endblock %}
+
