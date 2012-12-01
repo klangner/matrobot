@@ -11,6 +11,7 @@ from matrobot.project.models import ProjectActivity
 def index(request):
     name = request.GET.get('name', '')
     if name:
+        name = name.strip()
         activities = []
         projects = ProjectActivity.gql("WHERE name=:1", name)
         for project in projects:
