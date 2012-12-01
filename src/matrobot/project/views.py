@@ -16,10 +16,16 @@ def index(request):
         projects = ProjectActivity.gql("WHERE name=:1", name)
         for project in projects:
             tenure = "%d-%.2d" % (project.year, project.month)
-            activities.append({'tenure': tenure, 'count': project.push_count})
+            if project.push_count:
+                activities.append({'tenure': tenure, 'count': project.push_count})
+            else:
+                activities.append({'tenure': tenure, 'prediction': project.push_prediction})
         if len(activities) > 0:
             activities = sorted(activities, key=lambda activity: activity['tenure'])
-            return render_to_response('project/index.html', {'name':name, 'activities':activities})
+            return render_to_response('project/index.html', {'name':name, 
+                                                             'activities':activities,
+                                                             'activity_count':len(activities)
+                                                             })
         
     return render_to_response('project/not_found.html', {'name':name})
     

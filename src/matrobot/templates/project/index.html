@@ -17,11 +17,17 @@
 	    var data = new google.visualization.DataTable();
 	    data.addColumn('string', 'Month');
 	    data.addColumn('number', 'Actual events');
-	    data.addRows([
+	    data.addColumn('number', 'Prediction');
+	    data.addRows( {{activity_count}} );
 			{% for activity in activities %}
-				['{{activity.tenure}}', {{activity.count}}],
+				data.setValue({{forloop.counter0}}, 0, '{{activity.tenure}}');
+				{% if activity.count %}
+					data.setValue({{forloop.counter0}}, 1, {{activity.count}});
+				{% endif %}
+				{% if activity.prediction %}
+					data.setValue({{forloop.counter0}}, 2, {{activity.prediction}});
+				{% endif %}
 			{% endfor %}
-	    ]);
 	 
 	    var chartDiv = document.getElementById('chart_div')
 	    var chart = new google.visualization.LineChart(chartDiv);

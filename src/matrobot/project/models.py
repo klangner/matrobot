@@ -12,6 +12,7 @@ class ProjectActivity(db.Model):
     year = db.IntegerProperty()
     month = db.IntegerProperty()
     push_count = db.IntegerProperty()
+    push_prediction = db.IntegerProperty()
 
 #def project_activity_key(name):
 #    return db.Key.from_path('Project', name)
