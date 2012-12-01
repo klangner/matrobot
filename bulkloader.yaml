@@ -29,7 +29,7 @@ transformers:
   connector_options:
   property_map:
     - property: __key__
-      external_name: key
+      import_template: "%(name)s-%(year)s-%(month)s"
       export_transform: transform.key_id_or_name_as_string
 
     - property: name
