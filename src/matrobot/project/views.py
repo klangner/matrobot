@@ -30,7 +30,8 @@ def index(request):
     projects = ProjectActivity.gql("WHERE name>=:1 LIMIT 30", name)
     project_names = set()
     for project in projects:
-        project_names.add(project.name)
+        if project.name.find(name) >= 0:
+            project_names.add(project.name)
     return render_to_response('project/not_found.html', {'name':name, 'project_names':project_names})
     
     
