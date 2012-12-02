@@ -26,12 +26,27 @@ def index(request):
     
     
 def _prepare_chart_data(name):
+    now = datetime.now()
+    year = 2012
+    month = 1
     projects = ProjectActivity.gql("WHERE name=:1", name)
     data = []
+    found_months = set()
     for project in projects:
         tenure = "%d-%.2d" % (project.year, project.month)
         data.append({'tenure':tenure, 'count':project.push_count})
+        found_months.add(tenure)
+    while month < now.month or year < now.year:
+        tenure = "%d-%.2d" % (year, month)
+        if not tenure in found_months:
+            data.append({'tenure':tenure, 'count':0})
+        month += 1
+        if month > 12:
+            month = 1
+            year += 1
+            
     data = sorted(data, key=lambda activity: activity['tenure'])
+    
     return data
 
 
