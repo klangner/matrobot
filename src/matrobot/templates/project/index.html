@@ -18,10 +18,10 @@
 	function drawChart(){
 	    var data = new google.visualization.DataTable();
 	    data.addColumn('string', 'Month');
-	    data.addColumn('number', 'Actual events');
-	    data.addColumn('number', 'Prediction');
+	    data.addColumn('number', 'Past data');
+	    data.addColumn('number', 'Forecast');
 	    data.addRows( {{activity_count}} );
-			{% for activity in activities %}
+			{% for activity in data %}
 				data.setValue({{forloop.counter0}}, 0, '{{activity.tenure}}');
 				{% if activity.count %}
 					data.setValue({{forloop.counter0}}, 1, {{activity.count}});
@@ -39,7 +39,8 @@
 	            title: 'Repository activity',
 	            pointSize:10,
 	            hAxis: {minValue:0, title: "Date"},
-	            vAxis: {minValue:0, title: "Push events"}
+	            vAxis: {minValue:0, title: "Push events"},
+	            'colors':['blue', 'red']
 	          };
 
 	    chart.draw(data, options);	    

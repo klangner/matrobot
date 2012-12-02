@@ -13,6 +13,11 @@
 
 # If you have module(s) with your model classes, add them here. Also
 # change the kind properties to model_class.
+#
+# Sample command
+# ~/bin/google_appengine/appcfg.py upload_data --config_file=bulkloader.yaml --filename=data/top_projects.csv --kind=TopProject --url=http://localhost:8080/_ah/remote_api
+#
+
 python_preamble:
 - import: base64
 - import: re
@@ -47,3 +52,39 @@ transformers:
       external_name: push_count
       import_transform: transform.none_if_empty(int)
 
+
+- kind: ProjectActivityPrediction
+  connector: csv
+  connector_options:
+  property_map:
+    - property: __key__
+      import_template: "%(name)s-%(year)s-%(month)s"
+      export_transform: transform.key_id_or_name_as_string
+
+    - property: name
+      external_name: name
+
+    - property: year
+      external_name: year
+      import_transform: transform.none_if_empty(int)
+
+    - property: month
+      external_name: month
+      import_transform: transform.none_if_empty(int)
+
+    - property: push_count
+      external_name: push_count
+      import_transform: transform.none_if_empty(int)
+
+
+- kind: TopProject
+  connector: csv
+  connector_options:
+  property_map:
+    - property: __key__
+      external_name: name
+      export_transform: transform.key_id_or_name_as_string
+
+    - property: name
+      external_name: name
+      

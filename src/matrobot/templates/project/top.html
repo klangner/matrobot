@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div id="well" class="well">
+		<h3>Repositories of the month</h3>
+		
+		<ol>
+		{% for project in projects %}
+			<li><a href="/project?name={{project.name|urlencode}}">{{project.name}}</a></li>
+		{% endfor %}
+		</ol>
+	</div>
+	
+{% endblock %}
+
