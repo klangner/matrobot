@@ -27,8 +27,11 @@ def index(request):
                                                              'activity_count':len(activities)
                                                              })
 
-    projects = ProjectActivity.gql("WHERE name>=:1 LIMIT 10", name)
-    return render_to_response('project/not_found.html', {'name':name, 'projects':projects})
+    projects = ProjectActivity.gql("WHERE name>=:1 LIMIT 30", name)
+    project_names = set()
+    for project in projects:
+        project_names.add(project.name)
+    return render_to_response('project/not_found.html', {'name':name, 'project_names':project_names})
     
     
 def long_term(request):

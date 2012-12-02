@@ -6,14 +6,14 @@
 		<h3>Repository {{name}} not found</h3>
 		
 		<p>
-			Only repository with at least 10 push events per month is included.
+			Only repositories which had at least 10 pushes in single month are included.
 		</p>
 		
 		<div style="margin-top:2em"></div>
 		<h4>Repositories with similar name</h4>
 		<ol>
-		{% for project in projects %}
-			<li><a href="/project?name={{project.name|urlencode}}">{{project.name}}</a></li>
+		{% for project_name in project_names %}
+			<li><a href="/project?name={{project_name|urlencode}}">{{project_name}}</a></li>
 		{% endfor %}
 		</ol>
 	</div>
