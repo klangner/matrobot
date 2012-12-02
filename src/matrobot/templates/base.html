@@ -68,7 +68,10 @@
 
 	<div class="container">
 
-		<form class="form-search" action="/project/" method="get" style="text-align:center;margin-top:50px;margin-bottom:50px">
+		{% block content_top %}
+		{% endblock %}
+		
+		<form class="form-search" action="/project/" method="get" style="text-align:center;margin-top:2em;margin-bottom:50px">
 			<input id="searchBox" type="text" placeholder="Repository name" name="name" class="input-medium span6">
 		  	<button type="submit" class="btn">Find repository</button>
 		  	<script type="text/javascript">
