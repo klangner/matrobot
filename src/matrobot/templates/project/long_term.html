@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="well" class="well">
+	<h3>How many repositories are active after one year?</h3>
+	
+	<div id="chart_div" style="margin-top:2em"></div>
+	
+	<h4>Remarks</h4>
+	<ol>
+		<li>Only 1.8% repositories are active after one year.</li>
+		<li>If your repository is still active after one year, then congratulations! :-)</li>
+		<li>Repository is considered as active when there is at least one push per month</li>
+		<li>Data was token from October 2011 to October 2012</li> 
+	</ol>
+</div>
+
+<script src='https://www.google.com/jsapi' type='text/javascript'></script>
+
+<script type="text/javascript">
+	google.load('visualization', '1.0', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+	
+	function drawChart(){
+	    var data = new google.visualization.DataTable();
+	    data.addColumn('string', 'Month');
+	    data.addColumn('number', 'Active repositories');
+	    data.addRows([
+	  				['0', 234906],
+	  				['1', 60613],
+	  				['2', 30853],
+	  				['3', 20210],
+	  				['4', 14956],
+	  				['5', 11779],
+	  				['6', 9576],
+	  				['7', 8042],
+	  				['8', 6815],
+	  				['9', 5946],
+	  				['10', 5268],
+	  				['11', 4658],
+	  				['12', 4229],
+	  	    ]);	 
+	    var chartDiv = document.getElementById('chart_div')
+	    var chart = new google.visualization.ColumnChart(chartDiv);
+	    var options = {
+	    		width: $('#well').width(), 
+	    		height: 500,
+	            title: 'Repository activity',
+	            pointSize:10,
+	            hAxis: {minValue:0, title: "Month"},
+	            vAxis: {minValue:0, title: "Repositories"}
+	          };
+
+	    chart.draw(data, options);	    
+	}
+	 
+</script>   	
+
+{% endblock %}
+

@@ -1,7 +1,7 @@
 # Matrobot.com
 ===============
 
-Web application for displaying statistics for GitHub repository.
+GAE application which presents statistics for GitHub repository.
 
 Important links
 ===============
