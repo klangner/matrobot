@@ -36,6 +36,8 @@ def _prepare_chart_data(name):
         tenure = "%d-%.2d" % (project.year, project.month)
         data.append({'tenure':tenure, 'count':project.push_count})
         found_months.add(tenure)
+    if len(data) == 0:
+        return data
     while month < now.month or year < now.year:
         tenure = "%d-%.2d" % (year, month)
         if not tenure in found_months:
