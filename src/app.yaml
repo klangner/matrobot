@@ -11,3 +11,12 @@ libraries:
 builtins:
 - django_wsgi: on
 - remote_api: on
+
+handlers:
+- url: /favicon\.ico
+  static_files: matrobot/templates/media/favicon.ico
+  upload: matrobot/templates/media/favicon\.ico
+
+- url: /robots\.txt
+  static_files: matrobot/templates/media/robots.txt
+  upload: matrobot/templates/media/robots\.txt
