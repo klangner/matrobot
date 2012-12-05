@@ -2,9 +2,9 @@ from django.conf.urls.defaults import patterns, include, url
 import os
 
 urlpatterns = patterns('',
-    # Homepage
     url(r'^$', 'matrobot.public.views.index'),
     (r'^project/', include('matrobot.project.urls')),    
+    (r'^public/', include('matrobot.public.urls')),    
 
     # System URLs
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
