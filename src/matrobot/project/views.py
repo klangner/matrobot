@@ -4,10 +4,12 @@ Created on 2012-12-01
 
 @author: Krzysztof Langner
 '''
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.utils.datetime_safe import datetime
 from matrobot.project.models import ProjectActivity, ProjectActivityPrediction, \
     TopProject
+import csv
 
 
 def index(request):
@@ -16,7 +18,7 @@ def index(request):
         name = name.strip()
         data = _prepare_chart_data(name)
         if len(data) > 0:
-            data = _add_forecast(name, data)
+#            data = _add_forecast(name, data)
             return render_to_response('project/index.html', {'name':name, 
                                                              'data':data,
                                                              'activity_count':len(data)
@@ -77,6 +79,23 @@ def _find_similar_projects(name):
     return project_names
 
 
+def download(request):
+    name = request.GET.get('name', '')
+    if name:
+        name = name.strip()
+        data = _prepare_chart_data(name)
+        if len(data) > 0:
+            response = HttpResponse(mimetype='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="activity.csv"'
+            writer = csv.writer(response)
+            writer.writerow(['Repository', 'Push events'])
+            for record in data:
+                writer.writerow([record['tenure'], record['count']])
+            return response
+    project_names = _find_similar_projects(name)
+    return render_to_response('project/not_found.html', {'name':name, 'project_names':project_names})
+    
+    
 def long_term(request):
     return render_to_response('project/long_term.html')
 
