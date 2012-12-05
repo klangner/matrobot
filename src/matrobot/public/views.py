@@ -13,3 +13,7 @@ def index(request):
 
 def datasets(request):
     return render_to_response('public/datasets.html')
+
+
+def insights(request):
+    return render_to_response('public/insights.html')
