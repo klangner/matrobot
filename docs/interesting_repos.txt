@@ -1,6 +1,0 @@
-GerryG/wagn
-OSLL/geo2tag
-PhantomX/slackbuilds
-ufoai/ufoai
-
-start 11
