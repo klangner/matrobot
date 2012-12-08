@@ -71,9 +71,9 @@ def download(request):
             response = HttpResponse(mimetype='text/csv')
             response['Content-Disposition'] = 'attachment; filename="activity.csv"'
             writer = csv.writer(response)
-            writer.writerow(['Repository', 'Push events'])
+            writer.writerow(['Repository', 'Push events', 'Committer count'])
             for record in data:
-                writer.writerow([record['tenure'], record['count']])
+                writer.writerow([record['tenure'], record['count'], record['committer_count']])
             return response
     project_names = _find_similar_projects(name)
     return render_to_response('project/not_found.html', {'name':name, 'project_names':project_names})
