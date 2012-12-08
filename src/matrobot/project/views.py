@@ -7,8 +7,7 @@ Created on 2012-12-01
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.utils.datetime_safe import datetime
-from matrobot.project.models import ProjectActivity, ProjectActivityPrediction, \
-    TopProject
+from matrobot.project.models import ProjectActivity, TopProject
 import csv
 
 
@@ -18,7 +17,6 @@ def index(request):
         name = name.strip()
         data = _prepare_chart_data(name)
         if len(data) > 0:
-#            data = _add_forecast(name, data)
             return render_to_response('project/index.html', {'name':name, 
                                                              'data':data,
                                                              'activity_count':len(data)
@@ -36,14 +34,14 @@ def _prepare_chart_data(name):
     found_months = set()
     for project in projects:
         tenure = "%d-%.2d" % (project.year, project.month)
-        data.append({'tenure':tenure, 'count':project.push_count})
+        data.append({'tenure':tenure, 'count':project.push_count, 'committer_count':project.committer_count})
         found_months.add(tenure)
     if len(data) == 0:
         return data
     while month < now.month or year < now.year:
         tenure = "%d-%.2d" % (year, month)
         if not tenure in found_months:
-            data.append({'tenure':tenure, 'count':0})
+            data.append({'tenure':tenure, 'count':0, 'committer_count':0})
         month += 1
         if month > 12:
             month = 1
@@ -51,21 +49,6 @@ def _prepare_chart_data(name):
             
     data = sorted(data, key=lambda activity: activity['tenure'])
     
-    return data
-
-
-def _add_forecast(name, data):
-    now = datetime.now()
-    year = now.year
-    month = now.month
-    predictions = ProjectActivityPrediction.gql("WHERE name=:1", name)
-    for prediction in predictions:
-        if prediction.year == year and prediction.month == month:
-            last = data[-1]
-            last['prediction'] = last['count']
-            tenure = "%d-%.2d" % (prediction.year, prediction.month)
-            data.append({'tenure':tenure, 'prediction':prediction.push_count})
-            break
     return data
 
 

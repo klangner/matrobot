@@ -52,6 +52,10 @@ transformers:
       external_name: push_count
       import_transform: transform.none_if_empty(int)
 
+    - property: committer_count
+      external_name: committer_count
+      import_transform: transform.none_if_empty(int)
+
 
 - kind: ProjectActivityPrediction
   connector: csv

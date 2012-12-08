@@ -12,14 +12,7 @@ class ProjectActivity(db.Model):
     year = db.IntegerProperty()
     month = db.IntegerProperty()
     push_count = db.IntegerProperty()
-    push_prediction = db.IntegerProperty()
-
-
-class ProjectActivityPrediction(db.Model):
-    name = db.StringProperty()
-    year = db.IntegerProperty()
-    month = db.IntegerProperty()
-    push_count = db.IntegerProperty()
+    committer_count = db.IntegerProperty(default=0)
 
 
 class TopProject(db.Model):

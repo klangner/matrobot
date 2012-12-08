@@ -24,12 +24,14 @@
 	function drawChart(){
 	    var data = new google.visualization.DataTable();
 	    data.addColumn('string', 'Month');
-	    data.addColumn('number', 'Past data');
+	    data.addColumn('number', 'Activity');
+	    data.addColumn('number', 'Committers');
 	    data.addRows( {{activity_count}} );
-			{% for activity in data %}
-				data.setValue({{forloop.counter0}}, 0, '{{activity.tenure}}');
-				data.setValue({{forloop.counter0}}, 1, {{activity.count}});
-			{% endfor %}
+		{% for activity in data %}
+			data.setValue({{forloop.counter0}}, 0, '{{activity.tenure}}');
+			data.setValue({{forloop.counter0}}, 1, {{activity.count}});
+			data.setValue({{forloop.counter0}}, 2, {{activity.committer_count}});
+		{% endfor %}
 	 
 	    var chartDiv = document.getElementById('chart_div')
 	    var chart = new google.visualization.LineChart(chartDiv);
@@ -39,8 +41,7 @@
 	            title: 'Repository activity',
 	            pointSize:10,
 	            hAxis: {minValue:0, title: "Date"},
-	            vAxis: {minValue:0, title: "Push events"},
-	            legend: 'none'
+	            vAxis: {minValue:0, title: "Push events"}
 	          };
 
 	    chart.draw(data, options);	    
