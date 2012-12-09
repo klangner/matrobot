@@ -38,10 +38,14 @@ def _prepare_chart_data(name):
         found_months.add(tenure)
     if len(data) == 0:
         return data
+    started = False
     while month < now.month or year < now.year:
         tenure = "%d-%.2d" % (year, month)
         if not tenure in found_months:
-            data.append({'tenure':tenure, 'count':0, 'committer_count':0})
+            if started:
+                data.append({'tenure':tenure, 'count':0, 'committer_count':0})
+        else:
+            started = True
         month += 1
         if month > 12:
             month = 1
