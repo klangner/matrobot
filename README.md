@@ -6,6 +6,7 @@ GAE application which presents statistics for GitHub repository.
 Important links
 ===============
 
-- [www.matrobot.com](http://www.matrobot.com/)
+- You can view this application at address: [www.matrobot.com](http://www.matrobot.com/)
+- Create statistic from github data: [github-analysis](https://github.com/klangner/github-analysis)
 
 
