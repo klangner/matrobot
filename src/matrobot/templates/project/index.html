@@ -3,8 +3,18 @@
 {% block content %}
 
 <div id="well" class="well">
-	<h2>Repository: {{name}}</h2>
-	<p><a href="http://github.com/{{name}}">http://github.com/{{name}}</a></p>
+	<div class="row-fluid">
+		<div class="span6">
+			<h2>Repository: {{name}}</h2>
+			<p><a href="http://github.com/{{name}}">http://github.com/{{name}}</a></p>
+		</div>
+		<div class="span1 pull-right" style="text-align:center">
+			<div>Forecast</div>
+			<a href="#" rel="tooltip" title="This project has stable activity">
+				<img src="/media/images/weather-few-clouds.png" style="margin-top:1em"/>
+			</a>
+		</div>		
+	</div>
 	
 	<div id="chart_div" style="margin-top:2em"></div>
 	
