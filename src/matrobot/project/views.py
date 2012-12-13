@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.utils.datetime_safe import datetime
 from matrobot.project.models import ProjectActivity, TopProject
+from matrobot.project.utils import lm
 import csv
 
 
@@ -17,9 +18,11 @@ def index(request):
         name = name.strip()
         data = _prepare_chart_data(name)
         if len(data) > 0:
+            trend = _calculate_trends(data)
             return render_to_response('project/index.html', {'name':name, 
                                                              'data':data,
-                                                             'activity_count':len(data)
+                                                             'activity_count':len(data),
+                                                             'trend':trend
                                                              })
     project_names = _find_similar_projects(name)
     return render_to_response('project/not_found.html', {'name':name, 'project_names':project_names})
@@ -52,9 +55,33 @@ def _prepare_chart_data(name):
             year += 1
             
     data = sorted(data, key=lambda activity: activity['tenure'])
-    
     return data
 
+
+def _calculate_trends(activity_infos):
+    if len(activity_infos) < 6:
+        return 0
+    
+    data = []
+    x = 1
+    max_value = 0
+    for ai in activity_infos[-6:]:
+        data.append({'x': x, 'y': ai['count']})
+        max_value = max(ai['count'], max_value)
+        x += 1
+    scale = max_value/6.0
+    for record in data:
+        record['y'] = record['y']/scale
+    trend = lm(data)
+    if trend < -0.2:
+        return 1
+    elif trend < 0.2:
+        return 2
+    else:
+        return 3 
+
+    
+    
 
 def _find_similar_projects(name):
     projects = ProjectActivity.gql("WHERE name>=:1 LIMIT 30", name)
