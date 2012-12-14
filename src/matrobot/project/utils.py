@@ -14,9 +14,5 @@ def lm(data):
         y += sample['y']
         x += sample['x']
         x2 += sample['x']**2
-#    print xy
-#    print x
-#    print y
-#    print x2 
     slope = (6.0*xy-x*y)/(6.0*x2-x*x)
     return slope

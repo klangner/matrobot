@@ -70,8 +70,9 @@ def _calculate_trends(activity_infos):
         max_value = max(ai['count'], max_value)
         x += 1
     scale = max_value/6.0
-    for record in data:
-        record['y'] = record['y']/scale
+    if scale > 0:
+        for record in data:
+            record['y'] = record['y']/scale
     trend = lm(data)
     if trend < -0.2:
         return 1
