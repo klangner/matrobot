@@ -57,7 +57,7 @@ transformers:
       import_transform: transform.none_if_empty(int)
 
 
-- kind: ProjectActivityPrediction
+- kind: CommitterActivity
   connector: csv
   connector_options:
   property_map:
@@ -76,8 +76,8 @@ transformers:
       external_name: month
       import_transform: transform.none_if_empty(int)
 
-    - property: push_count
-      external_name: push_count
+    - property: commit_count
+      external_name: commit_count
       import_transform: transform.none_if_empty(int)
 
 

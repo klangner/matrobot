@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="well" class="well">
+	<div class="row-fluid">
+		<div class="span6">
+			<h2>Developer: {{name}}</h2>
+			<p><a href="http://github.com/{{name}}">http://github.com/{{name}}</a></p>
+		</div>
+	</div>
+	
+	<div id="chart_div" style="margin-top:2em"></div>
+</div>
+
+<script src='https://www.google.com/jsapi' type='text/javascript'></script>
+
+<script type="text/javascript">
+	google.load('visualization', '1.0', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+	
+	function drawChart(){
+	    var data = new google.visualization.DataTable();
+	    data.addColumn('string', 'Month');
+	    data.addColumn('number', 'Commits');
+	    data.addRows( {{activity_count}} );
+		{% for activity in data %}
+			data.setValue({{forloop.counter0}}, 0, '{{activity.tenure}}');
+			data.setValue({{forloop.counter0}}, 1, {{activity.count}});
+		{% endfor %}
+	 
+	    var chartDiv = document.getElementById('chart_div')
+	    var chart = new google.visualization.LineChart(chartDiv);
+	    var options = {
+	    		width: $('#well').width(), 
+	    		height: 500,
+	            title: 'Developer activity',
+	            pointSize:10,
+	            hAxis: {minValue:0, title: "Date"},
+	            vAxis: {minValue:0, title: "Commits"}
+	          };
+
+	    chart.draw(data, options);	    
+	}
+	 
+</script>   	
+
+{% endblock %}
+
