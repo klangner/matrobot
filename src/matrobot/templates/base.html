@@ -71,11 +71,20 @@
 		{% block content_top %}
 		{% endblock %}
 		
-		<form class="form-search" action="/project/" method="get" style="text-align:center;margin-top:2em;margin-bottom:50px">
-			<input id="searchBox" type="text" placeholder="Repository name" name="name" class="input-medium span6">
-		  	<button type="submit" class="btn">Find repository</button>
+		<form id="searchForm" class="form-search" action="/project/" method="get" style="text-align:center;margin-top:2em;margin-bottom:50px">
+			<input id="searchBox" type="text" placeholder="" name="name" class="input-medium span6">
+		  	<button type="submit" class="btn">Find</button>
+		  	
 		  	<script type="text/javascript">
        			$("#searchBox").focus();
+       		
+       			$('#searchForm').submit(function() {
+       				if($("#searchBox").val().indexOf("/") < 0){
+       					$("#searchForm").attr("action", "/people/");
+       				}
+       				
+       			  	return true;
+       			});
      		</script>
 		</form>
 
