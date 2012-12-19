@@ -53,9 +53,15 @@
     	<div class="navbar-inner">
         	<div class="container-fluid">
 	          	<a class="brand" href="/">MatRobot.com :</a>
-	          	<p class="navbar-text pull-left">
+	          	<div class="navbar-text pull-left">
 	          		GitHub repository statistics
-	          	</p>
+	          	</div>
+	          	{% block search_box %}
+	          	<form class="navbar-form pull-left offset1" action="/project/" method="get">
+  					<input type="text" name="name" class="input-medium span3">
+  					<button type="submit" class="btn">Search</button>
+				</form>
+				{% endblock %}
 	          	<div class="nav-collapse collapse">
 	            	<p class="navbar-text pull-right">
 		        		<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=klangner&repo=matrobot&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="98px" height="20px"></iframe>      		
@@ -66,28 +72,7 @@
       	</div>
 	</div>
 
-	<div class="container">
-
-		{% block content_top %}
-		{% endblock %}
-		
-		<form id="searchForm" class="form-search" action="/project/" method="get" style="text-align:center;margin-top:2em;margin-bottom:50px">
-			<input id="searchBox" type="text" placeholder="" name="name" class="input-medium span6">
-		  	<button type="submit" class="btn">Find</button>
-		  	
-		  	<script type="text/javascript">
-       			$("#searchBox").focus();
-       		
-       			$('#searchForm').submit(function() {
-       				if($("#searchBox").val().indexOf("/") < 0){
-       					$("#searchForm").attr("action", "/people/");
-       				}
-       				
-       			  	return true;
-       			});
-     		</script>
-		</form>
-
+	<div class="container-fluid">
 		{% block content %}
 		{% endblock %}
 	</div>
