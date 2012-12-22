@@ -15,7 +15,7 @@ import csv
 def index(request):
     name = request.GET.get('name', '')
     if name:
-        name = name.strip()
+        name = name.replace(' ', '')
         data = _prepare_chart_data(name)
         if len(data) > 0:
             trend = _calculate_trends(data)
