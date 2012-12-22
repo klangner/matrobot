@@ -7,8 +7,8 @@ Created on 2012-12-01
 
 from google.appengine.ext import db
 
-class CommitterActivity(db.Model):
+class DeveloperActivity(db.Model):
     name = db.StringProperty()
     year = db.IntegerProperty()
     month = db.IntegerProperty()
-    commit_count = db.IntegerProperty(default=0)
+    activity_count = db.IntegerProperty(default=0)

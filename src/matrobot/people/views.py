@@ -6,7 +6,7 @@ Created on 2012-12-01
 '''
 from django.shortcuts import render_to_response
 from django.utils.datetime_safe import datetime
-from matrobot.people.models import CommitterActivity
+from matrobot.people.models import DeveloperActivity
 
 
 def index(request):
@@ -26,12 +26,12 @@ def _prepare_chart_data(name):
     now = datetime.now()
     year = 2012
     month = 1
-    developers = CommitterActivity.gql("WHERE name=:1", name)
+    developers = DeveloperActivity.gql("WHERE name=:1", name)
     data = []
     found_months = set()
     for developer in developers:
         tenure = "%d-%.2d" % (developer.year, developer.month)
-        data.append({'tenure':tenure, 'count':developer.commit_count})
+        data.append({'tenure':tenure, 'count':developer.activity_count})
         found_months.add(tenure)
     if len(data) == 0:
         return data

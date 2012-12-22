@@ -56,12 +56,23 @@
 	          	<div class="navbar-text pull-left">
 	          		GitHub repository statistics
 	          	</div>
+
 	          	{% block search_box %}
-	          	<form class="navbar-form pull-left offset1" action="/project/" method="get">
-  					<input type="text" name="name" class="input-medium span3">
+	          	<form id="searchForm" class="navbar-form pull-left offset1" action="/project/" method="get">
+  					<input id="searchBox" type="text" name="name" class="input-medium span3">
   					<button type="submit" class="btn">Search</button>
 				</form>
+			  	<script type="text/javascript">
+	      			$('#searchForm').submit(function() {
+	      				if($("#searchBox").val().indexOf("/") < 0){
+	      					$("#searchForm").attr("action", "/people/");
+	      				}
+	      				
+	      			  	return true;
+	      			});
+	    		</script>
 				{% endblock %}
+				
 	          	<div class="nav-collapse collapse">
 	            	<p class="navbar-text pull-right">
 		        		<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=klangner&repo=matrobot&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="98px" height="20px"></iframe>      		
