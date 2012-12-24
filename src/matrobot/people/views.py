@@ -7,6 +7,7 @@ Created on 2012-12-01
 from django.shortcuts import render_to_response
 from django.utils.datetime_safe import datetime
 from matrobot.people.models import DeveloperActivity
+from matrobot.project.models import ProjectDeveloper
 
 
 def index(request):
@@ -15,9 +16,11 @@ def index(request):
         name = name.strip()
         data = _prepare_chart_data(name)
         if len(data) > 0:
+            project_developers = ProjectDeveloper.gql("WHERE developer=:1", name)
             return render_to_response('people/index.html', {'name':name, 
                                                              'data':data,
                                                              'activity_count':len(data),
+                                                             'project_developers':project_developers
                                                              })
     return render_to_response('people/not_found.html', {'name':name})
     

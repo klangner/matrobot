@@ -4,7 +4,7 @@
 
 <div class="row-fluid">
 	<div class="span9 well">
-	<h2>Repository: {{name}}</h2>
+		<h2>Repository: {{name}}</h2>
 		<div id="chart_div" style="margin-top:2em"></div>
 		
 		<div class="row-fluid">
@@ -56,6 +56,13 @@
 				</tr>
 			</table>
 		</div>
+
+		<h3>Related people</h3>
+		<ul>
+		{% for pd in project_developers %}
+			<li><a href="/people?name={{pd.developer}}">{{pd.developer}}</a></li>				
+		{% endfor %}
+		</ul>
 	</div>
 	
 </div>

@@ -81,6 +81,24 @@ transformers:
       import_transform: transform.none_if_empty(int)
 
 
+- kind: ProjectDeveloper
+  connector: csv
+  connector_options:
+  property_map:
+    - property: __key__
+      external_name: key
+
+    - property: repository
+      external_name: repository
+
+    - property: developer
+      external_name: user
+
+    - property: event_count
+      external_name: event_count
+      import_transform: transform.none_if_empty(int)
+
+
 - kind: TopProject
   connector: csv
   connector_options:

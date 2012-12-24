@@ -15,6 +15,12 @@ class ProjectActivity(db.Model):
     committer_count = db.IntegerProperty(default=0)
 
 
+class ProjectDeveloper(db.Model):
+    repository = db.StringProperty()
+    developer = db.StringProperty()
+    event_count = db.IntegerProperty(default=0)
+
+
 class TopProject(db.Model):
     name = db.StringProperty()
 
