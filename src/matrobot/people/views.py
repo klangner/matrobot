@@ -16,10 +16,12 @@ def index(request):
         name = name.strip()
         data = _prepare_chart_data(name)
         if len(data) > 0:
+            is_top_20 = data[-1]['count'] > 14
             project_developers = ProjectDeveloper.gql("WHERE developer=:1", name)
             return render_to_response('people/index.html', {'name':name, 
                                                              'data':data,
                                                              'activity_count':len(data),
+                                                             'is_top_20': is_top_20,
                                                              'project_developers':project_developers
                                                              })
     return render_to_response('people/not_found.html', {'name':name})

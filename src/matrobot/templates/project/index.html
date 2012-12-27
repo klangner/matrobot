@@ -4,7 +4,14 @@
 
 <div class="row-fluid">
 	<div class="span9 well">
-		<h2>Repository: {{name}}</h2>
+		<h2>
+			{% if is_top_20 %}
+			<a href="#" rel="tooltip" title="This repository is in the Top 20% of most active repositories last month">
+				<img src="/media/images/badge_top20.png" width="65"/></a>
+			{% endif %}
+			Repository: {{name}}
+		</h2>
+			
 		<div id="chart_div" style="margin-top:2em"></div>
 		
 		<div class="row-fluid">

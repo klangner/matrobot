@@ -20,11 +20,13 @@ def index(request):
         data = _prepare_chart_data(name)
         if len(data) > 0:
             trend = _calculate_trends(data)
+            is_top_20 = data[-1]['count'] > 8
             developers = ProjectDeveloper.gql("WHERE repository=:1", name)
             return render_to_response('project/index.html', {'name':name, 
                                                              'data':data,
                                                              'activity_count':len(data),
                                                              'trend':trend,
+                                                             'is_top_20': is_top_20,
                                                              'project_developers':developers
                                                              })
     project_names = _find_similar_projects(name)
