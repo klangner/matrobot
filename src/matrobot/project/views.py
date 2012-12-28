@@ -7,8 +7,8 @@ Created on 2012-12-01
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.utils.datetime_safe import datetime
-from matrobot.project.models import ProjectActivity, TopProject,\
-    ProjectDeveloper
+from matrobot.project.models import ProjectActivity, TopProject, \
+    ProjectDeveloper, Repository
 from matrobot.project.utils import lm
 import csv
 
@@ -22,12 +22,14 @@ def index(request):
             trend = _calculate_trends(data)
             is_top_20 = data[-1]['count'] > 8
             developers = ProjectDeveloper.gql("WHERE repository=:1", name)
+            repo = Repository.get_by_key_name(name)
             return render_to_response('project/index.html', {'name':name, 
                                                              'data':data,
                                                              'activity_count':len(data),
                                                              'trend':trend,
                                                              'is_top_20': is_top_20,
-                                                             'project_developers':developers
+                                                             'project_developers':developers,
+                                                             'repo':repo
                                                              })
     project_names = _find_similar_projects(name)
     return render_to_response('project/not_found.html', {'name':name, 'project_names':project_names})

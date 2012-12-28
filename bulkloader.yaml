@@ -99,6 +99,23 @@ transformers:
       import_transform: transform.none_if_empty(int)
 
 
+- kind: Repository
+  connector: csv
+  connector_options:
+  property_map:
+    - property: __key__
+      external_name: name
+
+    - property: language
+      external_name: language
+
+    - property: homepage
+      external_name: homepage
+
+    - property: created_at
+      external_name: createdAt
+
+
 - kind: TopProject
   connector: csv
   connector_options:

@@ -1,6 +1,6 @@
-name,year,month,push_count,committer_count
-ala/demo,2012,8,31,4
-ala/demo,2012,9,100,1
-ala/demo,2012,10,11,2
-ala/demo,2012,11,54,3
+name,year,month,push_count,committer_count,language,homepage,createdAt
+ala/demo,2012,8,31,4,Java,http://matrobot.com,2012-01-01
+ala/demo,2012,9,100,1,Java,http://matrobot.com,2012-01-01
+ala/demo,2012,10,11,2,Java,http://matrobot.com,2012-01-01
+ala/demo,2012,11,54,3,Java,http://matrobot.com,2012-01-01
 

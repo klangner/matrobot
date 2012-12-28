@@ -38,10 +38,6 @@
 		<div class="row-fluid">
 			<table class="table table-bordered" style="withd:100%">
 				<tr>
-					<td class="span4">URL:</td>
-					<td class="span8"><a href="http://github.com/{{name}}">http://github.com/{{name}}</a></td>
-				</tr>
-				<tr>
 					<td style="vertical-align:middle">Forecast:</td>
 					<td>
 					{% if trend == 1 %}
@@ -60,6 +56,22 @@
 						</a>
 					{% endif %}
 					</td>
+				</tr>
+				<tr>
+					<td class="span4">Github:</td>
+					<td class="span8"><a href="http://github.com/{{name}}">http://github.com/{{name}}</a></td>
+				</tr>
+				<tr>
+					<td class="span4">Language:</td>
+					<td class="span8">{{repo.language}}</td>
+				</tr>
+				<tr>
+					<td class="span4">Homepage:</td>
+					<td class="span8"><a href="{{repo.homepage}}">{{repo.homepage}}</a></td>
+				</tr>
+				<tr>
+					<td class="span4">Created at:</td>
+					<td class="span8">{{repo.created_at}}</td>
 				</tr>
 			</table>
 		</div>

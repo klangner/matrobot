@@ -21,6 +21,13 @@ class ProjectDeveloper(db.Model):
     event_count = db.IntegerProperty(default=0)
 
 
+class Repository(db.Model):
+    name = db.StringProperty()
+    language = db.StringProperty()
+    homepage = db.StringProperty()
+    created_at = db.StringProperty()
+
+
 class TopProject(db.Model):
     name = db.StringProperty()
 
